@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 
   console.log("doing weather proxy call", req.params);
 
-  var queryString = "q=London,uk";
+  let queryString = null;
   if (req.query.city && req.query.country) {
     let city = encodeURIComponent(req.query.city);
     let country = encodeURIComponent(req.query.country).toLowerCase();
@@ -23,18 +23,18 @@ router.get('/', function(req, res, next) {
     queryString = `lat=${encodeURIComponent(req.query.lat)}&lon=${encodeURIComponent(req.query.lon)}`;
   }
 
+  if (queryString === null) {
+    res.sendStatus(400).send("Unrecognised query format");
+  }
+
   console.log("fetch", `http://api.openweathermap.org/data/2.5/forecast?${queryString}&appid=${apiKey}`);
 
   fetch(`http://api.openweathermap.org/data/2.5/forecast?${queryString}&units=metric&appid=${apiKey}`)
     .then(response => response.json())
-    .then(data => {
-      console.log("city", data.city);
-      res.json(data);
-    })
+    .then(data => res.json(data))
     .catch((err) => {
       console.log("Didn't work because: ", err);
     });
-
 });
 
 module.exports = router;

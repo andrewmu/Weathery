@@ -1,0 +1,111 @@
+
+.weather-day {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.weather-day {
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+.weather-day.large {
+    width: 100%;
+    padding: 20px;
+    font-size: 4em;
+}
+
+
+.weather-day.day {
+    background-color: #8cf;
+    color: #000;
+}
+
+.weather-day.night {
+    background-color: #026;
+    color: #fff;
+}
+
+.weather-day .temp-area {
+    position: relative; /* Make viewport for absolute temperature children */
+}
+
+.weather-day .info-area {
+    position: relative;
+}
+
+.weather-day .day-name,
+.weather-day .description {
+    text-align: center;
+}
+
+.weather-day .day-name {
+    font-size: 0.6em;
+    text-transform: uppercase;
+    margin-bottom: 0.5em;
+}
+
+.weather-day .temp-area .temp-main {
+    font-size: 1.4em;
+    line-height: 1.3em;
+}
+
+.weather-day .temp-area .temp-main {
+    /* Center horizontally */
+    text-align: center;
+
+    /* Center vertically */
+    position: relative;
+/*    top: 50%;
+    transform: translateY(-50%);
+*/
+}
+
+
+.weather-day .precipitation,
+.weather-day .wind,
+.weather-day .temp-area .temp-max,
+.weather-day .temp-area .temp-min {
+    font-size: 0.8em;
+}
+
+.weather-day .temp-area .temp-max,
+.weather-day .temp-area .temp-min {
+    position: absolute;
+}
+
+.weather-day .temp-area .temp-max {
+    top: 0;
+    right: 0;
+}
+.weather-day .temp-area .temp-min {
+    right: 0;
+    bottom: 0;
+}
+
+.weather-day .other-info {
+    overflow: hidden;
+    line-height: 1em;
+}
+
+.weather-day .precipitation {
+    float: left;
+}
+
+.weather-day .wind {
+    float: right;
+}
+
+.weather-day img.icon {
+    width: 80px;
+    filter: blur(1px);
+    opacity: 0.5;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+.weather-day.large img.icon {
+    width: 300px;
+    filter: blur(3px);
+}

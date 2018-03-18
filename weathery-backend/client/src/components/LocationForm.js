@@ -8,6 +8,8 @@ class LocationForm extends Component {
     constructor(props) {
         super(props);
 
+        // This component has no explicit state - it's all in the parent App component
+
         this.submit = this.submit.bind(this);
         this.handleCityChange = this.handleCityChange.bind(this);
         this.handleCountryChange = this.handleCountryChange.bind(this);
@@ -29,18 +31,24 @@ class LocationForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.submit} >
-                <label htmlFor="city">City</label>
-                <input type="text" name="city" id="city" value={this.props.city} onChange={this.handleCityChange}/>
+            <form className="location-form" onSubmit={this.submit} >
+                <div>
+                    <label htmlFor="city">City</label>
+                    <input type="text" name="city" id="city" value={this.props.city} onChange={this.handleCityChange}/>
+                </div>
 
-                <label htmlFor="country">Country</label>
-                <select name="country" id="country" value={this.props.country} onChange={this.handleCountryChange}>
-                    {countries.getData().map(entry => 
-                        <option value={entry.code} key={entry.code}>{entry.name}</option>
-                    )}
-                </select>
+                <div>
+                    <label htmlFor="country">Country</label>
+                    <select name="country" id="country" value={this.props.country} onChange={this.handleCountryChange}>
+                        {countries.getData().map(entry => 
+                            <option value={entry.code} key={entry.code}>{entry.name}</option>
+                        )}
+                    </select>
+                </div>
 
-                <input type="submit" value="Go" />
+                <div>
+                    <input type="submit" value="Go" />
+                </div>
             </form>
         );
     }
@@ -48,7 +56,10 @@ class LocationForm extends Component {
 
 LocationForm.propTypes = {
     city: PropTypes.string,
-    country: PropTypes.string
+    country: PropTypes.string,
+    setCity: PropTypes.func,
+    setCountry: PropTypes.func,
+    lookupCity: PropTypes.func
 };
 
 export default LocationForm;

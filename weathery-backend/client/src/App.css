@@ -1,9 +1,36 @@
 .App {
-  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
   background-color: #eee;
 }
 
-.App-header {
-  padding: 20px;
+.App h1 {
+  margin: 0;
+  text-align: center;
 }
 
+.location-form {
+  overflow: hidden;
+  padding: 10px 0;
+}
+
+.location-form input[type=submit],
+.location-form label {
+  margin: 0 5px 0 15px;
+}
+
+.location-form > div {
+  float: left;
+}
+
+/* layout the four days after today horizontally */
+
+.small-days {
+  overflow: hidden;
+}
+
+.small-days .weather-day {
+  float: left;
+  width: 25%;
+}

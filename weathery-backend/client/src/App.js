@@ -19,6 +19,7 @@ class App extends Component {
     this.state = {
       city: "",
       country: countryGuess,
+      lookupStatus: undefined,
       weather: null
     }
 
@@ -40,17 +41,16 @@ class App extends Component {
     let city = this.state.city;
     let country = this.state.country;
 
+    this.setState({ lookupStatus: "pending" });  // Ignore any pending geolocation based response
+
     getForecastFromCity(city, country)
       .then(data => {
-        if (data.cod === 200) {
-          this.setState({ weather: data, city: data.city.name });
-        }
-        else {
-          // Some error
-        }
-      })//this.setState({ weather: data }))
+        this.setState({ weather: data, city: data.city.name });
+        this.setState({ lookupStatus: "finished" });
+      })
       .catch((err) => {
         console.log("Didn't work because: ", err);
+        this.setState({ lookupStatus: "failed" });
       });      
   }
 
@@ -59,15 +59,25 @@ class App extends Component {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => { // success callback
-          getForecastFromLatLon(position.coords.latitude, position.coords.longitude)
-            .then(data => {
-              if (data.cod === 200) {
-                this.setState({ weather: data, city: data.city.name, country: data.city.country });
-              }
-              else {
-                // Some error
-              }
-            });
+          if (!this.state.lookupStatus) { // Check we're not doing a lookup
+            this.setState({ lookupStatus: "geolocation-pending" });
+            getForecastFromLatLon(position.coords.latitude, position.coords.longitude)
+              .then(data => {
+                if (this.state.lookupStatus === "geolocation-pending") { // Make sure we're still interested in this response
+                  if (data.cod === "200") {
+                    this.setState({ weather: data, city: data.city.name, country: data.city.country });
+                  }
+                  else {
+                    // Some error
+                    console.log("cod wasn't 200");
+                  }
+                }
+                else {
+                  console.log("status wasn't pending, ignore the result");
+                }
+                this.setState({ lookupStatus: "finished" });
+              });
+          }
         },
         (err) => { // failure callback
           console.log("geolocation didn't work", err);
@@ -77,19 +87,22 @@ class App extends Component {
   }
 
   render() {
-    let outlook = this.state.weather && this.state.weather.list[0];
-    console.log("weather.outlook", outlook);
+    const gotWeather = !!this.state.weather;
+    console.log("weather.outlook", gotWeather);
 
     return (
       <div className="App">
-        <LocationForm city={this.state.city} country={this.state.country} setCity={this.setCity} setCountry={this.setCountry} lookupCity={this.lookupCity}/>
         <header className="App-header">
           <h1>Weathery</h1>
         </header>
-        <div>
-          <h3>{this.state.weather && this.state.weather.city.name}</h3>
+        <LocationForm city={this.state.city} country={this.state.country} setCity={this.setCity} setCountry={this.setCountry} lookupCity={this.lookupCity}/>
+        <WeatherDay day="0" forecast={gotWeather && this.state.weather.list[0]} size="large" />
+        <div className="small-days">
+          <WeatherDay day="1" forecast={gotWeather && this.state.weather.list[8]} />
+          <WeatherDay day="2" forecast={gotWeather && this.state.weather.list[16]} />
+          <WeatherDay day="3" forecast={gotWeather && this.state.weather.list[24]} />
+          <WeatherDay day="4" forecast={gotWeather && this.state.weather.list[24]} />
         </div>
-        <WeatherDay day="Today" outlook={outlook} />
       </div>
     );
   }
