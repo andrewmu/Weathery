@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 
 import "./WeatherDay.css";
 
@@ -32,9 +32,11 @@ class WeatherDay extends Component {
             dayName = date.toLocaleString(navigator.language, {weekday: 'long'}); // FIXME: IE locale is different
         }
 
+        // If all the temperatures are the same for this day, there's no point showing the "range"
         const sameTemps = forecast ? (forecast.main.temp !== forecast.main.temp_max) || (forecast.main.temp !== forecast.main.temp_min) : false;
 
         let precipitation = "";
+        let windDir = '';
         if (forecast) {
             if (forecast.rain) {
                 let percent = Math.floor(100*forecast.rain['3h']); // round to integer percent
@@ -44,12 +46,9 @@ class WeatherDay extends Component {
                 let percent = Math.floor(100*forecast.snow['3h']); // round to integer percent
                 if (percent > 10) precipitation = String.fromCharCode(10052) + percent + "%";
             }
-        }
 
-        // Unicode arrows representing ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
-        const directions = [0x2191, 0x2197, 0x2192, 0x2198, 0x2193, 0x2199, 0x2190, 0x2196].map(n => String.fromCharCode(n));
-        let windDir = '';
-        if (forecast) {
+            // Unicode arrows representing ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
+            const directions = [0x2191, 0x2197, 0x2192, 0x2198, 0x2193, 0x2199, 0x2190, 0x2196].map(n => String.fromCharCode(n));
             const degrees = forecast.wind.deg;
             const index = Math.floor(Math.abs(((1*degrees + 22.5) % 360) / 45));
             windDir = directions[index] + Math.round((3600*forecast.wind.speed)/1000) + " km/s";
@@ -64,10 +63,10 @@ class WeatherDay extends Component {
                     <div className="description">{forecast.weather[0].main}</div>
                     <div className="temp-area">
                         <div className="temp-main">{Math.round(forecast.main.temp)}&deg;C</div>
-                        {sameTemps &&
+                        { sameTemps &&
                             <div className="temp-max">{Math.round(forecast.main.temp_max)}&deg;C</div>
                         }
-                        {sameTemps &&
+                        { sameTemps &&
                             <div className="temp-min">{Math.round(forecast.main.temp_min)}&deg;C</div>
                         }
                     </div>
@@ -80,7 +79,11 @@ class WeatherDay extends Component {
             </div>
         );
     }
-
 }
+
+WeatherDay.propTypes = {
+    day: PropTypes.number,
+    forecast: PropTypes.object
+};
 
 export default WeatherDay;

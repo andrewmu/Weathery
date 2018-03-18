@@ -87,8 +87,7 @@ class App extends Component {
   }
 
   render() {
-    const gotWeather = !!this.state.weather;
-    console.log("weather.outlook", gotWeather);
+    const getForecastForDay = (day) => this.state.weather ? this.state.weather.list[8*day] : null;
 
     return (
       <div className="App">
@@ -96,12 +95,12 @@ class App extends Component {
           <h1>Weathery</h1>
         </header>
         <LocationForm city={this.state.city} country={this.state.country} setCity={this.setCity} setCountry={this.setCountry} lookupCity={this.lookupCity}/>
-        <WeatherDay day="0" forecast={gotWeather && this.state.weather.list[0]} size="large" />
+        <WeatherDay day={0} forecast={getForecastForDay(0)} size="large" />
         <div className="small-days">
-          <WeatherDay day="1" forecast={gotWeather && this.state.weather.list[8]} />
-          <WeatherDay day="2" forecast={gotWeather && this.state.weather.list[16]} />
-          <WeatherDay day="3" forecast={gotWeather && this.state.weather.list[24]} />
-          <WeatherDay day="4" forecast={gotWeather && this.state.weather.list[24]} />
+          <WeatherDay day={1} forecast={getForecastForDay(1)} />
+          <WeatherDay day={2} forecast={getForecastForDay(2)} />
+          <WeatherDay day={3} forecast={getForecastForDay(3)} />
+          <WeatherDay day={4} forecast={getForecastForDay(4)} />
         </div>
       </div>
     );
