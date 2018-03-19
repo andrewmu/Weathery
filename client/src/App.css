@@ -10,19 +10,6 @@
   text-align: center;
 }
 
-.location-form {
-  overflow: hidden;
-  padding: 10px 0;
-}
-
-.location-form input[type=submit],
-.location-form label {
-  margin: 0 5px 0 15px;
-}
-
-.location-form > div {
-  float: left;
-}
 
 /* layout the four days after today horizontally */
 

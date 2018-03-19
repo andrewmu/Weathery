@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import "./LocationForm.css"
+
 var countries = require('country-list')();
 
 class LocationForm extends Component {
@@ -34,7 +36,7 @@ class LocationForm extends Component {
             <form className="location-form" onSubmit={this.submit} >
                 <div>
                     <label htmlFor="city">City</label>
-                    <input type="text" name="city" id="city" value={this.props.city} onChange={this.handleCityChange}/>
+                    <input type="text" name="city" id="city" value={this.props.city} onChange={this.handleCityChange} required="required"/>
                 </div>
 
                 <div>
@@ -57,9 +59,9 @@ class LocationForm extends Component {
 LocationForm.propTypes = {
     city: PropTypes.string,
     country: PropTypes.string,
-    setCity: PropTypes.func,
-    setCountry: PropTypes.func,
-    lookupCity: PropTypes.func
+    setCity: PropTypes.func.isRequired,
+    setCountry: PropTypes.func.isRequired,
+    lookupCity: PropTypes.func.isRequired
 };
 
 export default LocationForm;

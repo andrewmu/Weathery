@@ -1,0 +1,18 @@
+.location-form {
+    overflow: hidden;
+    padding: 10px 0;
+}
+
+.location-form input[type=submit],
+.location-form label {
+    margin: 0 5px 0 15px;
+}
+
+form.location-form:invalid input[type=submit] {
+    pointer-events: none;
+    color: #999;
+}
+
+.location-form > div {
+    float: left;
+}

@@ -5,10 +5,6 @@ import "./WeatherDay.css";
 
 class WeatherDay extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const forecast = this.props.forecast;
 
@@ -18,15 +14,15 @@ class WeatherDay extends Component {
         const isDay = (iconName || "").slice(-1) !== 'n';   
 
         let dayName = null;
-        if (this.props.day === "0") {
+        if (this.props.day === 0) {
             dayName = "Today";
         }
-        else if (this.props.day === "1") {
+        else if (this.props.day === 1) {
             dayName = "Tomorrow";
         }
         else {
             // Get the date that this day refers to (relative to our current timezone, don't trust the API timestamp)
-            let date = new Date((new Date()).getTime() + (parseInt(this.props.day, 10) * 60*60*24*1000));
+            let date = new Date((new Date()).getTime() + (this.props.day * 60*60*24*1000));
 
             // This will actually give a localised day name, e.g. Dienstag / Mardi, etc.
             dayName = date.toLocaleString(navigator.language, {weekday: 'long'}); // FIXME: IE locale is different
