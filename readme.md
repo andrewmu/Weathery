@@ -33,6 +33,11 @@ The OpenWeatherMap service requires a private API key to access, so to keep the 
 * the web page can now be accessed at: http://localhost:3000/
 
 
+Testing
+
+* run `npm test` in Weathery/client
+
+
 ## Remaining Tasks
 
 ### Production version creation
