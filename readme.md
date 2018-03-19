@@ -4,6 +4,7 @@
 
 A single page application to display weather data from the OpenWeatherMap remote service.
 
+![Example Screenshot](Weathery-screenshot01.png)
 
 ## Installing and running
 
