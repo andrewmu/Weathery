@@ -66,7 +66,7 @@
 .weather-day .wind,
 .weather-day .temp-area .temp-max,
 .weather-day .temp-area .temp-min {
-    font-size: 0.8em;
+    font-size: 0.7em;
 }
 
 .weather-day .temp-area .temp-max,
@@ -97,12 +97,17 @@
 }
 
 .weather-day img.icon {
-    width: 80px;
-    filter: blur(1px);
-    opacity: 0.5;
+    /* Center the image */
     position: absolute;
     left: 50%;
-    transform: translateX(-50%)
+    transform: translateX(-50%);
+
+    width: 80px;
+
+/* The OpenWeatherMap icons are very low resolution, so we use them as faint,
+   out of focus background images by applying a blur filter */
+   filter: blur(1px);
+   opacity: 0.5;
 }
 
 .weather-day.large img.icon {
