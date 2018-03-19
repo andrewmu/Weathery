@@ -5,7 +5,7 @@
 
 .location-form input[type=submit],
 .location-form label {
-    margin: 0 5px 0 15px;
+    margin: 0 5px;
 }
 
 form.location-form:invalid input[type=submit] {
@@ -15,4 +15,5 @@ form.location-form:invalid input[type=submit] {
 
 .location-form > div {
     float: left;
+    line-height: 1.5em;
 }

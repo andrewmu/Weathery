@@ -43,12 +43,9 @@ class LocationForm extends Component {
                     <label htmlFor="country">Country</label>
                     <select name="country" id="country" value={this.props.country} onChange={this.handleCountryChange}>
                         {countries.getData().map(entry => 
-                            <option value={entry.code} key={entry.code}>{entry.name}</option>
+                            <option value={entry.code} key={entry.code}>{entry.name.replace(' and ', ' & ').replace(' the ', '')}</option>
                         )}
                     </select>
-                </div>
-
-                <div>
                     <input type="submit" value="Go" />
                 </div>
             </form>

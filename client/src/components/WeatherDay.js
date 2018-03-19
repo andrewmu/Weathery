@@ -35,12 +35,12 @@ class WeatherDay extends Component {
         let windDir = '';
         if (forecast) {
             if (forecast.rain) {
-                let percent = Math.floor(100*forecast.rain['3h']); // round to integer percent
-                if (percent > 10) precipitation = String.fromCharCode(55357)+String.fromCharCode(56487) + percent + "%";
+                let percent = Math.floor(100*forecast.rain['3h'])/100; // round to integer percent
+                if (percent > 0.01) precipitation = String.fromCharCode(55357)+String.fromCharCode(56487) + percent + "mm";
             }
             else if (forecast.snow) {
-                let percent = Math.floor(100*forecast.snow['3h']); // round to integer percent
-                if (percent > 10) precipitation = String.fromCharCode(10052) + percent + "%";
+                let percent = Math.floor(100*forecast.snow['3h'])/100; // round to integer percent
+                if (percent > 0.01) precipitation = String.fromCharCode(10052) + percent + "mm";
             }
 
             // Unicode arrows representing ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
